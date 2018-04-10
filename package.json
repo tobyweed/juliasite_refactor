@@ -1,0 +1,24 @@
+{
+  "name": "julia_refactor",
+  "version": "1.0.0",
+  "description": "Complete refactor of portfolio site for painter Julia Jensen",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "author": "Toby Weed",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cloudinary": "^1.11.0",
+    "cloudinary_js": "^2.5.0",
+    "ejs": "^2.5.8",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.5",
+    "socket.io": "^2.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
+}

@@ -1,0 +1,21 @@
+<% include partials/header.ejs %>
+
+<div class="form-container">
+  <div class="form">
+    <form class="img-upload-form" action="/paintings?_method=POST" enctype="multipart/form-data" method="POST">
+      <input type="text" placeholder="Description" name="description">
+      <input type="file" placeholder="image" name="painting">
+      <button class="submit-btn" type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+<div class="gallery">
+  <% for(var i=0; i<paintings.length; i++) {%>
+    <div class="painting">
+      <img src="<%= paintings[i].url %>"></img>
+    </div>
+  <% } %>
+</div>
+
+<% include partials/footer.ejs %>

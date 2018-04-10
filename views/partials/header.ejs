@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Julia Jensen Studio</title>
+    
+    <link rel="stylesheet" href="/stylesheets/main.css"></link>
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Tajawal" rel="stylesheet">
+    
+    <!--JQUery-->
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    
+    <!--JQuery cloudinary dependencies-->
+    <script type="text/javascript" src="/js/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="/js/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="/js/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="/js/jquery.cloudinary.js"></script>
+    
+    <script src="/js/nicEdit.js" type="text/javascript"></script>
+    
+    <!--on load scripts-->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            
+                //Navbar active handling. Divide the url into segments based on slashes, check the fourth segment 
+                //for what page we're on.
+                var loc = window.location.href;
+                var spl = loc.split("/");
+                var str = spl[3];
+                if(str) {
+                    $("#"+str).addClass("active");
+                } else {
+                    $("#paintings").addClass("active");
+                }
+            }) 
+    </script>
+
+</head>
+<body onLoad="">
+ 
+    <div id="header">
+        <p id="title">julia jensen</p>
+        
+        <ul id="nav-list">
+            <li class="nav-item"><a id="paintings" href="/">paintings</a></li>
+            <li class="nav-item"><a id="statement" href="/statement">statement</a></li>
+            <li class="nav-item"><a id="workshops" href="/workshops">workshops</a></li>
+            <li class="nav-item"><a id="contact" href="/contact">contact</a></li>
+        </ul>
+    </div>

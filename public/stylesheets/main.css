@@ -1,0 +1,124 @@
+/*General*/
+body {
+    font-size: .85em;
+    font-family: 'Tajawal', sans-serif;
+    /*font-family: 'Raleway', sans-serif;*/
+    color: rgba(40,40,40,.8);
+}
+
+a {
+   text-decoration: none;
+   color: inherit;
+}
+
+a:hover {
+    color: black;
+    transition: color .6s;
+    -webkit-transition: color .6s;
+    -moz-transition: color .6s;
+    -o-transition: color .6s;
+}
+
+.active {
+    color: black;
+}
+
+
+/*Pages*/
+.info-text-editor {
+    width: 600px;
+    height: 300px;
+    text-align: center;
+}
+
+
+/*Gallery*/
+.form-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form {
+    display: inline-block;
+    border: 1px solid rgba(40,40,40,.4);
+    padding: 5px;
+}
+
+.form input {
+    width: 200px;
+}
+
+.submit-btn {
+    display: block;
+    width: 60px;
+    margin: 5px 0 0 0;
+}
+
+.gallery {
+    margin: 0 10vw 0 10vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 50px;
+}
+
+.painting {
+    max-width: 100%;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.painting img {
+    max-width: 100%;
+    min-width: 100%;
+}
+
+
+
+/*Navbar*/
+
+#header {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+#title {
+    font-size: 1.3em;
+    font-weight: 400;
+    margin: .9em;
+    margin-top: 1.4em;
+}
+
+#nav-list {
+    margin: 0;
+    padding: 5px;
+    /*border-top: 1px solid rgba(0,0,0,.1);*/
+    /*border-bottom: 1px solid rgba(0,0,0,.1);*/
+    
+    list-style-type: none;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+}
+
+.nav-item {
+    display: inline-block;
+}
+
+.nav-item a {
+    padding: 16px;
+}
+
+/*Footer*/
+#footer {
+    color: rgba(30,30,30,.6);
+    font-size: .8em;
+    text-align: center;
+    margin: 3em;
+}
+
+#footer a {
+    color: inherit;
+}
