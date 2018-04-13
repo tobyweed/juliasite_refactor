@@ -15,9 +15,7 @@ app.set("view engine", "ejs");
 
 //cloudinary config
 cloudinary.config({ 
-  cloud_name: 'tobyweed', 
-  api_key: '441336794356661', 
-  api_secret: 'qW7hkwN3rkTfQ1szMWDtQh69GoY' 
+  SECRET; 
 });
 
 //Cloudinary/multer setup
@@ -58,6 +56,7 @@ app.post('/paintings', upload, (req, res) => {
 })
 
 
+
 //INFO ROUTES ==================================================================
 
 //Statement
@@ -95,7 +94,7 @@ app.get("/contact",(req,res)=>{
 //Connect to DB
 var db;
 
-MongoClient.connect('mongodb://tobyweed:hedwig1553@ds237979.mlab.com:37979/testing', (err, client) => {
+MongoClient.connect('mongodb://username:password@ds237979.mlab.com:37979/testing', (err, client) => {
     if(err ){
         console.log(err);
     } else {

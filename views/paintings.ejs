@@ -1,5 +1,6 @@
 <% include partials/header.ejs %>
 
+<!--Upload form-->
 <div class="form-container">
   <div class="form">
     <form class="img-upload-form" action="/paintings?_method=POST" enctype="multipart/form-data" method="POST">
@@ -10,6 +11,7 @@
   </div>
 </div>
 
+<!--Populate gallery-->
 <div class="gallery">
   <% for(var i=0; i<paintings.length; i++) {%>
     <div class="painting">
