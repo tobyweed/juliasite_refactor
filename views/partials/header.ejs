@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Julia Jensen Studio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href="/stylesheets/main.css"></link>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/responsive.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway|Tajawal" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     
     <!--JQUery-->
     <script
@@ -29,19 +32,26 @@
                 } else {
                     $("#paintings").addClass("active");
                 }
-            }) 
+        });
+        
+        function dropNav() {
+            $(".nav-item").slideToggle(100, "linear");
+        }  
     </script>
 
 </head>
 <body onLoad="">
+
+<div id="page-container">
  
     <div id="header">
-        <p id="title">julia jensen</p>
+        <p id="title">julia jensen <a id="nav-button" onclick="dropNav()"><span class="ion-android-menu"></span></a></p>
         
         <ul id="nav-list">
             <li class="nav-item"><a id="paintings" href="/">paintings</a></li>
-            <li class="nav-item"><a id="statement" href="/statement">statement</a></li>
+            <li class="nav-item"><a id="about" href="/about">about</a></li>
             <li class="nav-item"><a id="workshops" href="/workshops">workshops</a></li>
             <li class="nav-item"><a id="contact" href="/contact">contact</a></li>
+            <% if(login) { %> <li class="nav-item"><a id="logout" href="/logout">logout</a></li> <% } %>
         </ul>
     </div>

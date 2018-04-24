@@ -1,4 +1,18 @@
 <% include ../partials/header.ejs %>
 
+<div class="outer-container">
+    <div class="inner-container contact-container">
+        Email: <a href="mailto:juliajensenweed@comcast.net">juliajensenweed@comcast.net</a>
+        <br>
+        <br>
+        <form class="mail-form" action="mailto:tobyweed@gmail.com" method="post" enctype="text/plain">
+            Name:<br>
+            <input type="text" name="From"><br><br>
+            Message:<br>
+            <textarea class="message" name="Message"></textarea><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
 
 <% include ../partials/footer.ejs %>

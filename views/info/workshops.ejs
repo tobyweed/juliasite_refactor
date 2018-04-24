@@ -1,4 +1,24 @@
 <% include ../partials/header.ejs %>
 
+<!--Convert textareas to editable boxes-->
+<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+
+
+<div class="outer-container">
+  <div class="inner-container text-edit-containter">
+    <!--If logged in-->
+    <% if(login) { %>
+      <form class="text-upload-form" action="/workshops" method="POST">
+        <textarea class="info-text-editor" name="text"><%= workshops.text %></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    <% } %>
+    <!--If not logged in-->
+    <div class="display-text">
+      <%-workshops.text%>
+    </div>
+  </div>
+</div>
+
 
 <% include ../partials/footer.ejs %>

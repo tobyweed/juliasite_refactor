@@ -1,86 +1,118 @@
 //Dependencies
-const express = require("express");
-const app = express();
-const MongoClient = require('mongodb').MongoClient;
-const bodyParser = require('body-parser');
-const cloudinary = require('cloudinary');
-const cloudinaryStorage = require('multer-storage-cloudinary');
-const multer = require('multer');
+var express = require("express");
+var app = express();
+var MongoClient = require('mongodb').MongoClient;
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 
+var middleware = require("./middleware");
+var paintingRoutes = require("./routes/paintings");
 
-//Setup
-app.use(express.static(__dirname + "/public"));
-app.use(bodyParser.urlencoded({extended: true}))
+//misc setup
 app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
+app.use(cookieParser());
 
-//cloudinary config
-cloudinary.config({ 
-  SECRET; 
+//connect to db
+var db;
+MongoClient.connect('mongodb://'+ process.env.MONGO_USER + ':' + process.env.MONGO_PASSWORD + '@ds035633.mlab.com:35633/juliajensenstudio2', (err, client) => {
+    if(err){
+        console.log(err);
+    } else {
+        db = client.db('juliajensenstudio2');
+    }
 });
 
-//Cloudinary/multer setup
-var storage = cloudinaryStorage({
-  cloudinary: cloudinary,
-  folder: '/julia_site',
-  allowedFormats: ['jpg', 'png', 'jpeg']
-})
-
-var upload = multer({ 
-    storage: storage
-}).single('painting');
-
-
-//++++++++++++++++++========================ROUTES==================+++++++++++======+++==+==+=+++++===+++==+++==+
-
-//GALLERY=======================================================================
-
-//Landing/paintings route
-app.get("/",(req,res)=>{
-    db.collection('paintings').find().toArray((err, collection)=>{
-        if(err) return console.log(err);
-        res.render("paintings",{paintings:collection, cloudinary:cloudinary});
-    });
+//passport setup
+app.use(session({ secret: process.env.SECRET, resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+    
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
 });
 
-//Post route 
-app.post('/paintings', upload, (req, res) => {
-    db.collection('paintings').count().then( (numPaints)=> {
-        db.collection('paintings').save({description: req.body.description, url: req.file.url, index: numPaints}, (err, result) => {
-            if (err) {
-                console.log(err)
-            } else {
-                res.redirect('/')
-            }
-        })
-    })
-})
+passport.deserializeUser(function(id, done) {
+  done(null, { id: id, nickname: "test"})
+});
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+      if (username === process.env.USERNAME && password === process.env.PASSWORD) {
+          return done(null, { name: "test", id: '1234'});
+      } else {
+          return done(null, false, { message: 'Incorrect cred.' });
+      }
+  })
+)
+
+//isAuthenticated middleware for template login awareness
+app.use(function (req, res, next) {
+  res.locals.login = req.isAuthenticated();
+  next();
+});
 
 
+//++++++++++++++++++===================ROUTES==================+++++++++++======
+
+//Gallery
+app.use("/",paintingRoutes);
 
 //INFO ROUTES ==================================================================
 
-//Statement
+//about
 //get
-app.get("/statement",(req,res)=>{
-    db.collection("statement").findOne( (err,result) => {
-        if(err) return console.log(err);
-        console.log(result);
-        res.render("info/statement",{statement:result});
+app.get("/about",(req,res)=>{
+    db.collection("about").findOne( (err,result) => {
+        if (err) {
+            console.log(err);
+            return res.render("err");
+        }
+        db.collection('cv').findOne( (err,cv)=>{
+            if (err) {
+                console.log(err);
+                return res.render("err");
+            }
+            db.collection('portrait').findOne( (err,portrait) => {
+                if (err) {
+                    console.log(err);
+                    return res.render("err");
+                }
+                res.render("info/about", { cv:cv.url, about:result, portrait:portrait });
+            });
+        });
     });
 });
 
 //post
-app.post("/statement",(req,res)=>{
-    console.log(req.body.text);
-    db.collection('statement').replaceOne({},req.body,{upsert:true});
-    res.redirect("/statement");
-})
+app.post("/about",(req,res)=>{
+    db.collection('about').replaceOne({},req.body,{upsert:true});
+    res.redirect("/about");
+});
 
-//Workshops
+//workshops
 //get
 app.get("/workshops",(req,res)=>{
-    res.render("info/workshops");
+    db.collection("workshops").findOne( (err,result) => {
+        if (err) {
+            console.log(err);
+            return res.render("err");
+        }
+        res.render("info/workshops",{workshops:result});
+    });
 });
+
+//post
+app.post("/workshops",(req,res)=>{
+    db.collection('workshops').replaceOne({},req.body,{upsert:true});
+    res.redirect("/workshops");
+})
 
 //Contact
 //get
@@ -90,17 +122,32 @@ app.get("/contact",(req,res)=>{
 
 
 
+//AUTH==========================================================================
+app.get('/login', (req,res) => {
+    res.render('login');
+});
 
-//Connect to DB
-var db;
+app.post('/login', passport.authenticate('local', { 
+      successRedirect: '/',
+      failureRedirect: '/login'
+    })
+);
 
-MongoClient.connect('mongodb://username:password@ds237979.mlab.com:37979/testing', (err, client) => {
-    if(err ){
-        console.log(err);
-    } else {
-        db = client.db('testing');
-        app.listen(process.env.PORT, process.env.IP, function(){
-            console.log("server is listening");
-        });
-    }
+//logout
+app.get("/logout", function(req,res){
+    req.logout();
+    res.redirect("/");
+});
+
+
+
+//Safety net.
+app.get("*",function(req,res){
+    res.render("empty");
+})
+
+
+//Start server
+app.listen(process.env.PORT, process.env.IP, function(){
+    console.log("server is listening");
 });
