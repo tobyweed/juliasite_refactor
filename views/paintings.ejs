@@ -16,7 +16,7 @@
 
 <!--Populate gallery-->
 <div class="gallery">
-  <% for(var i=0; i<paintings.length; i++) { %>
+  <% for(var i=paintings.length-1; i>=0; i--) { %>
     <div class="painting">
       <div class="painting-img-container"><a href="/paintings/<%=paintings[i].index%>"><img src="<%= paintings[i].url %>"></a></div>
       
@@ -25,15 +25,14 @@
           <form class="delete-form" action="/paintings/<%=paintings[i].index %>?_method=DELETE" method="POST">
              <button class="gal-btn delete-btn"><span class="ion-ios-trash"></span></button>
           </form>
-          <% if(paintings[i].index > 0) { %>
+          <% if(paintings[i].index <  paintings.length -1) { %>
             <form class="update-pos-form" action="/paintings/<%=paintings[i].index%>/-1?_method=PUT" method="POST">
-                <button class="gal-btn move-left"><span class="ion-android-arrow-back"></span></button>
+                <button class="gal-btn move-right"><span class="ion-android-arrow-forward"></span></button>
             </form>
           <% } %>
-            
-          <% if(paintings[i].index <  paintings.length -1) { %>
+          <% if(paintings[i].index > 0) { %>
             <form class="update-pos-form" action="/paintings/<%=paintings[i].index%>/1?_method=PUT" method="POST">
-                <button class="gal-btn move-right"><span class="ion-android-arrow-forward"></span></button>
+                <button class="gal-btn move-left"><span class="ion-android-arrow-back"></span></button>
             </form>
           <% } %>
         </div>
