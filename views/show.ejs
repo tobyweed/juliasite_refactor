@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Julia Jensen Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Tajawal" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    
+    <!--JQUery-->
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    
+    <!--on load scripts-->
+    <script type="text/javascript">
+        $(document).keydown(function(e){
+            if (e.keyCode == 37) { 
+               $( "#goLeft span" ).trigger( "click" );
+            } else if (e.keyCode == 39) {
+               $( "#goRight span" ).trigger( "click" );
+            }
+        });
+    </script>
+</head>
+    <body>
+        <div id="show">
+            <div id="show-toolbar">
+                <div class="arrow">
+                    <% if(paintings[painting.index - 1]) { %>
+                        <a id="goLeft" href="/paintings/<%=painting.index -1%>">
+                            <span class="ion-ios-arrow-left"></span>
+                        </a>
+                    <% } %>
+                </div>
+                
+                <div class="index-counter">
+                    <% for( var i = 1; i <= paintings.length; i++) { 
+                        if( i !== painting.index + 1 ) { %>
+                            <a href="/paintings/<%=i-1%>"><span class="ion-ios-circle-outline"></span></a>&nbsp;
+                        <% } else { %>
+                            <span class="ion-ios-circle-filled"></span>&nbsp;
+                        <% } %>
+                    <% } %>
+                </div>
+                
+                <div class="right-section">
+                    <div></div>
+                    <div class="arrow">
+                        <% if(paintings[painting.index + 1]) { %>
+                            <a id="goRight" href="/paintings/<%=painting.index +1%>"><span class="ion-ios-arrow-right"></span></a>
+                        <% } %>
+                    </div>
+                    <div>
+                        <a href="/">
+                            <span class="ion-ios-close-empty"></span>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+            <div id="show-main">
+                <div class="show-painting">
+                    <img id="show-img" src="<%=painting.url%>"></img>
+                </div>
+                <span id="show-desc"><%=painting.description%></span>
+            </div>
+        </div>
+    </body>
+</html>

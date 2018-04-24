@@ -1,0 +1,57 @@
+<% include ../partials/header.ejs %>
+
+<!--Convert textareas to editable boxes-->
+<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+
+
+<div id="about-outer-container">
+  <div class="inner-container">
+    <div id="about-page">
+      <div id="about-leftside">
+          <img id="about-pic" src="<%= portrait.url %>">          
+          <% if(login) { %>
+                <div class="cv-form">
+                    Upload another version of your cv here.
+                    <form action="/portrait?_method=POST" enctype="multipart/form-data" method="POST">
+                        <input type="file" placeholder="image" name="painting">
+                        <button class="submit-btn" type="submit">Submit</button>
+                    </form>
+                </div>
+            <% } %>
+          <div id="about-links">
+            <br>
+            <a href="https://www.instagram.com/juliajensenstudio/" target="_blank">instagram</a>
+            <br>
+            <br>
+            <a href="<%= cv %>" target="_blank">cv</a>
+            <% if(login) { %>
+                <div class="cv-form">
+                    Upload another version of your cv here.
+                    <form action="/cv?_method=POST" enctype="multipart/form-data" method="POST">
+                        <input type="file" placeholder="image" name="painting">
+                        <button class="submit-btn" type="submit">Submit</button>
+                    </form>
+                </div>
+            <% } %>
+          </div>
+      </div>
+      
+      <div id="about-rightside">
+        <!--If logged in-->
+        <% if(login) { %>
+          <form class="text-upload-form" action="/about" method="POST">
+            <textarea class="info-text-editor" name="text"><%= about.text %></textarea>
+            <button type="submit">Submit</button>
+          </form>
+        <% } %>
+        <!--If not logged in-->
+        <div class="about-text">
+          <%-about.text%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% include ../partials/footer.ejs %>
