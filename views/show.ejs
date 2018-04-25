@@ -38,7 +38,7 @@
                 </div>
                 
                 <div class="index-counter">
-                    <% for( var i = paintings.length-1; i >= 0; i--) { 
+                    <% for( var i = paintings.length; i > 0; i--) { 
                         if( i !== painting.index + 1 ) { %>
                             <a href="/paintings/<%=i-1%>"><span class="ion-ios-circle-outline"></span></a>&nbsp;
                         <% } else { %>
