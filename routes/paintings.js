@@ -45,7 +45,7 @@ router.post("/cv", upload, (req,res)=> {
             console.log(err);
             return res.render("err");
         }
-        db.collection('cv').save({ url: req.file.url }, (err, uploaded)=>{
+        db.collection('cv').save({ url: req.file.secure_url }, (err, uploaded)=>{
             if (err) {
                 console.log(err);
                 return res.render("err");
@@ -61,7 +61,7 @@ router.post("/portrait", upload, (req,res)=> {
             console.log(err);
             return res.render("err");
         }
-        db.collection('portrait').save({ url: req.file.url }, (err, uploaded)=>{
+        db.collection('portrait').save({ url: req.file.secure_url }, (err, uploaded)=>{
             if (err) {
                 console.log(err);
                 return res.render("err");
@@ -102,7 +102,7 @@ router.get("/paintings/:index", (req,res)=>{
 //Post
 router.post('/paintings', upload, (req, res) => {
     db.collection('paintings').count().then( (numPaints)=> {
-        db.collection('paintings').save({description: req.body.description, url: req.file.url, index: numPaints}, (err, result) => {
+        db.collection('paintings').save({description: req.body.description, url: req.file.secure_url, index: numPaints}, (err, result) => {
             if (err) {
                 console.log(err);
                 return res.render("err");
