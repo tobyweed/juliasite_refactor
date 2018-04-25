@@ -26,13 +26,13 @@
              <button class="gal-btn delete-btn"><span class="ion-ios-trash"></span></button>
           </form>
           <% if(paintings[i].index <  paintings.length -1) { %>
-            <form class="update-pos-form" action="/paintings/<%=paintings[i].index%>/-1?_method=PUT" method="POST">
-                <button class="gal-btn move-right"><span class="ion-android-arrow-forward"></span></button>
+            <form class="update-pos-form" action="/paintings/<%=paintings[i].index%>/1?_method=PUT" method="POST">
+                <button class="gal-btn move-left"><span class="ion-android-arrow-back"></span></button>
             </form>
           <% } %>
           <% if(paintings[i].index > 0) { %>
-            <form class="update-pos-form" action="/paintings/<%=paintings[i].index%>/1?_method=PUT" method="POST">
-                <button class="gal-btn move-left"><span class="ion-android-arrow-back"></span></button>
+            <form class="update-pos-form" action="/paintings/<%=paintings[i].index%>/-1?_method=PUT" method="POST">
+                <button class="gal-btn move-right"><span class="ion-android-arrow-forward"></span></button>
             </form>
           <% } %>
         </div>
