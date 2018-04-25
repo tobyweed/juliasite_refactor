@@ -30,7 +30,7 @@ cloudinary.config({
 var storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: '/julia_site',
-  allowedFormats: ['jpg', 'png', 'jpeg']
+  allowedFormats: ['jpg', 'png', 'jpeg', 'pdf']
 });
 
 var upload = multer({ 

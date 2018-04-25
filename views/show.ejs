@@ -30,7 +30,7 @@
         <div id="show">
             <div id="show-toolbar">
                 <div class="arrow">
-                    <% if(paintings[painting.index - 1]) { %>
+                    <% if(paintings[painting.index + 1]) { %>
                         <a id="goLeft" href="/paintings/<%=painting.index -1%>">
                             <span class="ion-ios-arrow-left"></span>
                         </a>
@@ -38,7 +38,7 @@
                 </div>
                 
                 <div class="index-counter">
-                    <% for( var i = 1; i <= paintings.length; i++) { 
+                    <% for( var i = paintings.length-1; i >= 0; i--) { 
                         if( i !== painting.index + 1 ) { %>
                             <a href="/paintings/<%=i-1%>"><span class="ion-ios-circle-outline"></span></a>&nbsp;
                         <% } else { %>
@@ -50,7 +50,7 @@
                 <div class="right-section">
                     <div></div>
                     <div class="arrow">
-                        <% if(paintings[painting.index + 1]) { %>
+                        <% if(paintings[painting.index - 1]) { %>
                             <a id="goRight" href="/paintings/<%=painting.index +1%>"><span class="ion-ios-arrow-right"></span></a>
                         <% } %>
                     </div>
