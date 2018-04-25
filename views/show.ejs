@@ -31,7 +31,7 @@
             <div id="show-toolbar">
                 <div class="arrow">
                     <% if(paintings[painting.index + 1]) { %>
-                        <a id="goLeft" href="/paintings/<%=painting.index -1%>">
+                        <a id="goLeft" href="/paintings/<%=painting.index +1%>">
                             <span class="ion-ios-arrow-left"></span>
                         </a>
                     <% } %>
@@ -51,7 +51,7 @@
                     <div></div>
                     <div class="arrow">
                         <% if(paintings[painting.index - 1]) { %>
-                            <a id="goRight" href="/paintings/<%=painting.index +1%>"><span class="ion-ios-arrow-right"></span></a>
+                            <a id="goRight" href="/paintings/<%=painting.index -1%>"><span class="ion-ios-arrow-right"></span></a>
                         <% } %>
                     </div>
                     <div>
