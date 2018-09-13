@@ -38,13 +38,7 @@
                 </div>
                 
                 <div class="index-counter">
-                    <% for( var i = paintings.length; i > 0; i--) { 
-                        if( i !== painting.index + 1 ) { %>
-                            <a href="/paintings/<%=i-1%>"><span class="ion-ios-circle-outline"></span></a>&nbsp;
-                        <% } else { %>
-                            <span class="ion-ios-circle-filled"></span>&nbsp;
-                        <% } %>
-                    <% } %>
+                    <span><%=paintings.length - painting.index%>/<%=paintings.length%></span>
                 </div>
                 
                 <div class="right-section">
