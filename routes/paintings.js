@@ -1,10 +1,10 @@
-var express = require("express");
-var router = express.Router({mergeParams: true});
-var MongoClient = require('mongodb').MongoClient;
-var cloudinary = require('cloudinary');
-var cloudinaryStorage = require('multer-storage-cloudinary');
-var multer = require('multer');
-var methodOverride = require('method-override');
+const express = require("express");
+const router = express.Router({mergeParams: true});
+const MongoClient = require('mongodb').MongoClient;
+const cloudinary = require('cloudinary');
+const cloudinaryStorage = require('multer-storage-cloudinary');
+const multer = require('multer');
+const methodOverride = require('method-override');
 
 //Connect to MongoDB
 var db;
@@ -17,7 +17,7 @@ MongoClient.connect('mongodb://'+ process.env.MONGO_USER + ':' + process.env.MON
 });
 
 //Middleware
-var middleware = require("../middleware");
+const middleware = require("../middleware");
 
 //cloudinary config
 cloudinary.config({ 
@@ -27,13 +27,13 @@ cloudinary.config({
 });
 
 //Cloudinary/multer setup
-var storage = cloudinaryStorage({
+const storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: '/julia_site',
   allowedFormats: ['jpg', 'png', 'jpeg', 'pdf']
 });
 
-var upload = multer({ 
+const upload = multer({ 
     storage: storage
 }).single('painting');
 
@@ -56,7 +56,7 @@ router.post("/cv", upload, (req,res)=> {
 });
 
 router.post("/portrait", upload, (req,res)=> {
-    db.collection('portrait').deleteMany({},(err,deleted)=>{
+    db.collection('portrait').deleteMany({},(err,deleted)=> {
         if (err) {
             console.log(err);
             return res.render("err");
@@ -115,9 +115,9 @@ router.post('/paintings', upload, (req, res) => {
 
 //Update position
 router.put('/paintings/:index/:mtn', (req,res)=> {
-    var index = Number(req.params.index);
-    var mtn = Number(req.params.mtn);
-    var target_id;
+    let index = Number(req.params.index);
+    let mtn = Number(req.params.mtn);
+    let target_id;
     
     // Find the id of the painting being moved
     db.collection('paintings').findOne({index:index},(err,target)=>{
@@ -128,8 +128,8 @@ router.put('/paintings/:index/:mtn', (req,res)=> {
         // Store id
         target_id = target._id;
         
-        var incNums = [];
-        var incVal;
+        let incNums = [];
+        let incVal;
         
         //Store all numbers between index and index+mtn, and whether those numbers should be pos or neg inc
         if(mtn <= 0){
@@ -169,7 +169,7 @@ router.put('/paintings/:index/:mtn', (req,res)=> {
 
 //Destroy
 router.delete('/paintings/:index', (req,res) => {
-    var index = Number(req.params.index);
+    let index = Number(req.params.index);
     db.collection('paintings').deleteOne({index : index }, (err, deleted)=> {
         if (err) {
             console.log(err);

@@ -1,16 +1,16 @@
 //Dependencies
-var express = require("express");
-var app = express();
-var MongoClient = require('mongodb').MongoClient;
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
+const express = require("express");
+const app = express();
+const MongoClient = require('mongodb').MongoClient;
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
-var middleware = require("./middleware");
-var paintingRoutes = require("./routes/paintings");
+const middleware = require("./middleware");
+const paintingRoutes = require("./routes/paintings");
 
 //misc setup
 app.set("view engine", "ejs");
